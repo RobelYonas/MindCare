@@ -1,11 +1,8 @@
 # BACKEND
 - Create A database containing all the data regarding user feelings and their
   current state of mind.
-- Create a backend server that will be used to store the data and provide
-  the data to the frontend.
 - Use a backend framework like Django to connect the database to the server.
-- Create a REST API to connect the frontend to the backend.
-- Create correct endpoints for the frontend to use to fetch data from the
+- Create correct request for the frontend to use to fetch data from the
   backend.
 
 # FRONTEND
