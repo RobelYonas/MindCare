@@ -3,6 +3,8 @@ import pygame
 from Backend import Emotions
 import customtkinter as ctk
 import tkinter.messagebox as tkmb
+from Music_player import MusicPlayer
+
 
 class LoginUI:
     def __init__(self):
@@ -87,17 +89,98 @@ class LoginUI:
         self.app.mainloop()
 
 
+class GUI:
+    def __init__(self):
+        self.emotions = Emotions()
 
+        # initialize pygame mixer
+        pygame.mixer.init()
 
+        # create main window
+        self.root = tk.Tk()
+        self.root.title("MindCare")
+        self.root.geometry("500x550")
+        self.root.resizable(False, False)
+        self.root.config(bg="#2C3E50")
+
+        # create canvas
+        self.canvas = tk.Canvas(self.root, width=500, height=550, bg="#2C3E50")
+        self.canvas.pack()
+
+        # create emoji buttons
+        self.happy_btn = tk.Button(self.canvas, text="😊", bg="#2C3E50", font=("Helvetica", 36), padx=20, pady=10, command=lambda: self.update_emotion("Happy"))
+        self.ok_btn = tk.Button(self.canvas, text="😐", bg="#2C3E50", font=("Helvetica", 36), padx=20, pady=10, command=lambda: self.update_emotion("Ok"))
+        self.sad_btn = tk.Button(self.canvas, text="😢", bg="#2C3E50", font=("Helvetica", 36), padx=20, pady=10, command=lambda: self.update_emotion("Sad"))
+
+        # create meditate button
+        self.meditate_btn = tk.Button(self.canvas, text="Meditate", bg="#3498DB", fg="#ffffff", font=("Helvetica", 16), padx=20, pady=10, command=self.open_meditate_window)
+
+        # create quote label
+        self.quote_label = tk.Label(self.canvas, text="", font=("Helvetica", 16), anchor="center", justify="center", wraplength=400, fg="#ffffff", bg="#2C3E50")
+
+        # add buttons and quote label to canvas
+        self.canvas.create_window(125, 250, window=self.happy_btn)
+        self.canvas.create_window(250, 250, window=self.ok_btn)
+        self.canvas.create_window(375, 250, window=self.sad_btn)
+        self.canvas.create_window(250, 400, window=self.meditate_btn)
+        self.canvas.create_window(250, 475, window=self.quote_label)
+
+    def update_emotion(self, emotion_name):
+        quote = self.emotions.get_quote(emotion_name.lower())
+        self.quote_label.config(text=quote)
+
+    def play_audio(self):
+        if not pygame.mixer.music.get_busy():
+            pygame.mixer.music.load("Audio-1.mp3")
+            pygame.mixer.music.play()
+        else:
+            pygame.mixer.music.unpause()
+
+    def open_meditate_window(self):
+        # hide the main window
+        self.root.withdraw()
+
+        # create new window for meditation
+        meditate_window = MeditationWindow(self.root)
+        meditate_window = tk.Toplevel(self.root)
+        meditate_window.title("Meditation")
+        meditate_window.geometry("500x500")
+        meditate_window.resizable(False, False)
+
+        # create canvas
+        canvas = tk.Canvas(meditate_window, width=500, height=500, bg="#2C3E50")
+        canvas.pack()
+
+        # create label for meditation instructions
+        instructions_label = tk.Label(canvas, text="Close your eyes and focus on your breath.", font=("Helvetica", 16), anchor="center", justify="center", wraplength=400, fg="#ffffff", bg="#2C3E50")
+        canvas.create_window(250, 250, window=instructions_label)
+
+        # create button to play audio
+        play_btn = tk.Button(canvas, text="Play", bg="#FF3498", command=self.play_audio)
+        canvas.create_window(250, 400, window=play_btn)
+
+class MeditationWindow(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        # set title and size of the window
+        #self.title("Meditation")
+        #self.geometry("500x500")
+        #self.resizable(False, False)
+
+        # create canvas
+        #self.canvas = tk.Canvas(self, width=500, height=500, bg="#2C3")
 
 
 class MindCare:
     def __init__(self):
         self.login = LoginUI()
+        self.gui = GUI()
 
 
     def run(self):
         self.login.run()
+        self.gui.run()
 
 
 
