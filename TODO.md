@@ -1,15 +1,18 @@
 # BACKEND
 - Create A database containing all the data regarding user feelings and their
-  current state of mind.
-- Use a backend framework like Django to connect the database to the server.
-- Create correct request for the frontend to use to fetch data from the
-  backend.
+  current state of mind. - Done
+-  Create correct request for the frontend to use to fetch data from the
+  backend. - Done
 
 # FRONTEND
-- Use tkinter to create a GUI for the frontend.
-- The frontend should be able to fetch data from the backend.
+- Use tkinter to create a GUI for the frontend. - Done
+- The frontend should be able to fetch data from the backend. - Done
 - Create three different buttons for the user to click on to express their
-  feelings.
+  feelings. - Done
 - Based on the user input, the frontend should be able to send the data to
-  the backend.
-- The whole gui App will have two main pages, the first page will ask the user to click one of the three buttons to express their feelings, the second page will show the user their current state of mind.
+  the backend. - Done
+- Create simple audio player for the user to listen to music.
+
+# MISC
+- Create a simple README.md file for the project. 
+- Find a way to user accessing the codebase to test out the project.
