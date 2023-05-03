@@ -1,16 +1,17 @@
 import tkinter as tk
 import pygame
+
+import Music_player
 from Backend import Emotions
 import customtkinter as ctk
 import tkinter.messagebox as tkmb
-from Music_player import MusicPlayer
+from Music_player import run
 
 
 class LoginUI:
     def __init__(self):
         # Selecting GUI theme - dark, light , system (for system default)
         ctk.set_appearance_mode("dark")
-
         # Selecting color theme - blue, green, dark-blue
         ctk.set_default_color_theme("blue")
 
@@ -95,7 +96,6 @@ class GUI:
 
         # initialize pygame mixer
         pygame.mixer.init()
-
         # create main window
         self.root = tk.Tk()
         self.root.title("MindCare")
@@ -138,24 +138,7 @@ class GUI:
 
     def open_meditate_window(self):
         # hide the main window
-        self.root.withdraw()
-
-        meditate_window = tk.Toplevel(self.root)
-        meditate_window.title("Meditation")
-        meditate_window.geometry("500x500")
-        meditate_window.resizable(False, False)
-
-        # create canvas
-        canvas = tk.Canvas(meditate_window, width=500, height=500, bg="#2C3E50")
-        canvas.pack()
-
-        # create label for meditation instructions
-        instructions_label = tk.Label(canvas, text="Close your eyes and focus on your breath.", font=("Helvetica", 16), anchor="center", justify="center", wraplength=400, fg="#ffffff", bg="#2C3E50")
-        canvas.create_window(250, 250, window=instructions_label)
-
-        # create button to play audio
-        play_btn = tk.Button(canvas, text="Play", bg="#FF3498", command=self.play_audio)
-        canvas.create_window(250, 400, window=play_btn)
+        Music_player.run()
 
 #class MeditationWindow(tk.Toplevel):
         #def __init__(self, parent):
