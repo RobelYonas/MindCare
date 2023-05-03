@@ -80,3 +80,5 @@ register_button = ctk.CTkButton(master=frame, text='Register', command=register)
 register_button.pack(pady=12, padx=10)
 
 app.mainloop()
+
+# run
