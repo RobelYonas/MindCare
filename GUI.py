@@ -6,6 +6,8 @@ from Backend import Emotions
 import customtkinter as ctk
 import tkinter.messagebox as tkmb
 from Music_player import run
+
+
 # window
 
 class LoginUI:
@@ -14,18 +16,27 @@ class LoginUI:
         ctk.set_appearance_mode("dark")
         # Selecting color theme - blue, green, dark-blue
         ctk.set_default_color_theme("blue")
-
+        width = 500
+        height = 550
         self.app = ctk.CTk()
-        self.app.geometry("500x550")
+
+        screen_width = self.app.winfo_screenwidth()
+        screen_height = self.app.winfo_screenheight()
+
+        x = (screen_width / 2) - (width / 2)
+        y = (screen_height / 2) - (height / 2)
+
+        self.app.geometry("%dx%d+%d+%d" % (width, height, x, y))
+
         self.app.title("Modern Login UI using Customtkinter")
 
-        label = ctk.CTkLabel(self.app, text="This is the main UI page")
+        label = ctk.CTkLabel(self.app, text="MINDCARE")
         label.pack(pady=20)
 
         frame = ctk.CTkFrame(master=self.app)
         frame.pack(pady=20, padx=40, fill='both', expand=True)
 
-        label = ctk.CTkLabel(master=frame, text='Modern Login System UI')
+        label = ctk.CTkLabel(master=frame, text='Login / Register')
         label.pack(pady=12, padx=10)
 
         self.user_entry = ctk.CTkEntry(master=frame, placeholder_text="Username")
@@ -81,11 +92,14 @@ class LoginUI:
                 if line[1] == password:
                     tkmb.showinfo(title="Login Successful", message="You have logged in Successfully")
                     self.app.withdraw()
+                    gui = GUI()
+                    gui.root.mainloop()
                     return
                 else:
                     tkmb.showwarning(title='Wrong Password', message='Please check your password')
                     return
         tkmb.showerror(title='User not found', message='Please check your username')
+
     def run(self):
         self.app.mainloop()
 
@@ -97,9 +111,21 @@ class GUI:
         # initialize pygame mixer
         pygame.mixer.init()
         # create main window
+        width = 500
+        height = 550
+
         self.root = tk.Tk()
+
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+
+        x = (screen_width / 2) - (width / 2)
+        y = (screen_height / 2) - (height / 2)
+
+        self.root.geometry("%dx%d+%d+%d" % (width, height, x, y))
+
         self.root.title("MindCare")
-        self.root.geometry("500x550")
+
         self.root.resizable(False, False)
         self.root.config(bg="#2C3E50")
 
@@ -107,16 +133,23 @@ class GUI:
         self.canvas = tk.Canvas(self.root, width=500, height=550, bg="#2C3E50")
         self.canvas.pack()
 
+        #create title
+        self.canvas.create_text(250, 50, text="How are you feeling today??", font=("Helvetica", 26), fill="#ffffff")
         # create emoji buttons
-        self.happy_btn = tk.Button(self.canvas, text="😊", bg="#2C3E50", font=("Helvetica", 36), padx=20, pady=10, command=lambda: self.update_emotion("Happy"))
-        self.ok_btn = tk.Button(self.canvas, text="😐", bg="#2C3E50", font=("Helvetica", 36), padx=20, pady=10, command=lambda: self.update_emotion("Ok"))
-        self.sad_btn = tk.Button(self.canvas, text="😢", bg="#2C3E50", font=("Helvetica", 36), padx=20, pady=10, command=lambda: self.update_emotion("Sad"))
+        self.happy_btn = tk.Button(self.canvas, text="😊", bg="#2C3E50", font=("Helvetica", 36), padx=20, pady=10,
+                                   command=lambda: self.update_emotion("Happy"))
+        self.ok_btn = tk.Button(self.canvas, text="😐", bg="#2C3E50", font=("Helvetica", 36), padx=20, pady=10,
+                                command=lambda: self.update_emotion("Ok"))
+        self.sad_btn = tk.Button(self.canvas, text="😢", bg="#2C3E50", font=("Helvetica", 36), padx=20, pady=10,
+                                 command=lambda: self.update_emotion("Sad"))
 
         # create meditate button
-        self.meditate_btn = tk.Button(self.canvas, text="Meditate", bg="#3498DB", fg="#ffffff", font=("Helvetica", 16), padx=20, pady=10, command=self.open_meditate_window)
+        self.meditate_btn = tk.Button(self.canvas, text="Meditate", bg="#3498DB", fg="#ffffff", font=("Helvetica", 16),
+                                      padx=20, pady=10, command=self.open_meditate_window)
 
         # create quote label
-        self.quote_label = tk.Label(self.canvas, text="", font=("Helvetica", 16), anchor="center", justify="center", wraplength=400, fg="#ffffff", bg="#2C3E50")
+        self.quote_label = tk.Label(self.canvas, text="", font=("Helvetica", 16), anchor="center", justify="center",
+                                    wraplength=400, fg="#ffffff", bg="#2C3E50")
 
         # add buttons and quote label to canvas
         self.canvas.create_window(125, 250, window=self.happy_btn)
@@ -138,31 +171,16 @@ class GUI:
 
     def open_meditate_window(self):
         # hide the main window
+        self.root.withdraw()
         Music_player.run()
-
-#class MeditationWindow(tk.Toplevel):
-        #def __init__(self, parent):
-        #super().__init__(parent)
-
-        # set title and size of the window
-        #self.title("Meditation")
-        #self.geometry("500x500")
-        #self.resizable(False, False)
-
-        # create canvas
-        #self.canvas = tk.Canvas(self, width=500, height=500, bg="#2C3")
 
 
 class MindCare:
     def __init__(self):
         self.login = LoginUI()
-        self.gui = GUI()
-
 
     def run(self):
         self.login.run()
-        self.gui.run()
-
 
 
 mindcare = MindCare()
