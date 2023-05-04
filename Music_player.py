@@ -9,9 +9,19 @@ import time
 customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 
+width = 500
+height = 500
 root = customtkinter.CTk()
 root.title('Music Player')
-root.geometry('400x500')
+
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+x = (screen_width / 2) - (width / 2)
+y = (screen_height / 2) - (height / 2)
+
+root.geometry("%dx%d+%d+%d" % (width, height, x, y))
+
 pygame.mixer.init()
 
 list_of_songs = ['Audio-1.mp3', 'Audio-2.mp3']
@@ -25,11 +35,11 @@ def get_album_cover(song_name, n):
     load = ImageTk.PhotoImage(image2)
     label1 = tkinter.Label(root, image=load)
     label1.image = load
-    label1.place(relx=.19, rely=.06)
+    label1.place(relx=.28, rely=.06)
 
     stripped_string = song_name[6:-4]
     song_name_label = tkinter.Label(text = stripped_string, bg='#222222', fg='white')
-    song_name_label.place(relx=.4, rely=.6)
+    song_name_label.place(relx=.49, rely=.6)
 
     global time_label
     time_label = tkinter.Label(root, text='00:00', font=('Helvetica', 12))
