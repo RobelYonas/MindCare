@@ -122,6 +122,8 @@ slider.place(relx=0.5, rely=0.78, anchor=tkinter.CENTER)
 progressbar = customtkinter.CTkProgressBar(master=root, progress_color='#32a85a', width=250)
 progressbar.place(relx=.5, rely=.85, anchor=tkinter.CENTER)
 
+#run
+
 def run():
     root.mainloop()
 
