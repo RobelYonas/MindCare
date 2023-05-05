@@ -1,38 +1,34 @@
-# Import necessary libraries
 import tkinter
 import customtkinter
 import pygame
 from PIL import Image, ImageTk
 from threading import *
 import time
+# import math
 
-# Set appearance mode and default color theme
 customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 
-# Set window dimensions and title
 width = 500
 height = 500
 root = customtkinter.CTk()
 root.title('Music Player')
 
-# Get screen dimensions and center window
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
+
 x = (screen_width / 2) - (width / 2)
 y = (screen_height / 2) - (height / 2)
+
 root.geometry("%dx%d+%d+%d" % (width, height, x, y))
 
-# Initialize mixer and create list of songs and album covers
 pygame.mixer.init()
+
 list_of_songs = ['Audio-1.mp3', 'Audio-2.mp3']
 list_of_covers = ['med-1.jpg', 'med-2.jpg']
-
-# Initialize variables
 n = 0
 paused = False
 
-# Function to get album cover image
 def get_album_cover(song_name, n):
     image1 = Image.open(list_of_covers[n])
     image2=image1.resize((250, 250))
@@ -49,7 +45,7 @@ def get_album_cover(song_name, n):
     time_label = tkinter.Label(root, text='00:00', font=('Helvetica', 12))
     time_label.place(relx=0.5, rely=0.92, anchor='center')
 
-# Function to update progress of current song
+
 def progress():
     a = pygame.mixer.Sound(f'{list_of_songs[n]}')
     song_len = a.get_length() * 3
@@ -62,12 +58,11 @@ def progress():
         time_str = f"{minutes:02d}:{seconds:02d}"  # Format the time as mm:ss
         time_label.config(text=time_str)  # Update the time label
 
-# Function to run progress function in a separate thread
+
 def threading():
     t1 = Thread(target=progress)
     t1.start()
 
-# Function to play or pause music
 def play_music():
     global n
     global paused
@@ -85,31 +80,30 @@ def play_music():
         get_album_cover(song_name, n)
 
         play_button.configure(text="⏸️")
-        paused = False  # Reset the 'paused
-
+        paused = False  # Reset the 'paused' variable to False
 
 
 def skip_forward():
-    global n # access the global variable n
-    n += 1 # increment n by 1 to go to the next song in the list
-    if n >= len(list_of_songs):# if n exceeds the number of songs in the list
-        n = 0 # reset n to 0 to start from the beginning of the list
-    pygame.mixer.music.stop()# stop the currently playing song
-    play_music() # play the next song in the list
+    global n
+    n += 1
+    if n >= len(list_of_songs):
+        n = 0
+    pygame.mixer.music.stop()
+    play_music()
 
 
 def skip_back():
-    global n # access the global variable n
-    n -= 1 #decrement n by 1 to go to the previous song in the list
-    if n < 0: # if n becomes negative
-        n = len(list_of_songs) - 1# set n to the index of the last song in the list
-    pygame.mixer.music.stop()# stop the currently playing song
-    play_music()# play the previous song in the list
+    global n
+    n -= 1
+    if n < 0:
+        n = len(list_of_songs) - 1
+    pygame.mixer.music.stop()
+    play_music()
 
 
 def volume(value):
     #print(value)
-    pygame.mixer.music.set_volume(value) # set the volume of the music player to the slider
+    pygame.mixer.music.set_volume(value)
 
 
 # Buttons
@@ -130,6 +124,4 @@ progressbar.place(relx=.5, rely=.85, anchor=tkinter.CENTER)
 
 def run():
     root.mainloop()
-
-run()
 
