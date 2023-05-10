@@ -4,10 +4,10 @@ The Mind Care desktop app for Windows is designed to support users in expressing
 and practicing meditation. Upon registering or logging in, users can use emojis to convey their current state of mind,
 and the app responds with a motivational quote and encourages them  to meditate with non-copyrighted lofi music.
 ### FEATURES
-1. User login or registration.
-2. Interactive emotion tracking for users.
-3. Meditation section with music player.
-4. Motivational quotes display.
+- User login or registration.
+- Interactive emotion tracking for users.
+- Meditation section with music player.
+- Motivational quotes display.
 ## INSTALLATION
 To install this project,you can either download the repository as a ZIP file or clone it using git
 ### DOWNLOAD AS ZIP
