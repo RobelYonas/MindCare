@@ -80,6 +80,8 @@ class LoginUI:
         tkmb.showinfo(title="Registration Successful", message="You have registered successfully")
         self.hide_register()
         self.app.withdraw()
+        gui = GUI()
+        gui.root.mainloop()
 
     def login(self):
         username = self.user_entry.get()
