@@ -35,7 +35,7 @@ def get_album_cover(song_name, n):
     load = ImageTk.PhotoImage(image2)
     label1 = tkinter.Label(root, image=load)
     label1.image = load
-    label1.place(relx=.28, rely=.06)
+    label1.place(relx=.25, rely=.06)
 
     stripped_string = song_name[6:-4]
     song_name_label = tkinter.Label(text = stripped_string, bg='#222222', fg='white')
@@ -43,27 +43,10 @@ def get_album_cover(song_name, n):
 
     global time_label
     time_label = tkinter.Label(root, text='00:00', font=('Helvetica', 12))
-    time_label.place(relx=0.5, rely=0.92, anchor='center')
+    time_label.place(relx=0.5, rely=0.98, anchor='center')
 
 
-def progress():
-    a = pygame.mixer.Sound(f'{list_of_songs[n]}')
-    song_len = a.get_length() * 3
-    while pygame.mixer.music.get_busy():
-        time.sleep(.1)
-        current_pos = pygame.mixer.music.get_pos() / 1000  # Get current position of the song in milliseconds
-        progressbar.set(current_pos / song_len)  # Update progressbar
-        minutes = int(current_pos // 60)  # Calculate the number of minutes
-        seconds = int(current_pos % 60)  # Calculate the number of seconds
-        time_str = f"{minutes:02d}:{seconds:02d}"  # Format the time as mm:ss
-        time_label.config(text=time_str)  # Update the time label
-
-
-def threading():
-    t1 = Thread(target=progress)
-    t1.start()
-
-def play_music():
+def play_music(duration=0):
     global n
     global paused
     if pygame.mixer.music.get_busy() and not paused:
@@ -71,7 +54,7 @@ def play_music():
         paused = True
         play_button.configure(text="▶️")
     else:
-        threading()
+        threading(duration)
         current_song = n
         song_name = list_of_songs[n]
         pygame.mixer.music.load(song_name)
@@ -81,6 +64,37 @@ def play_music():
 
         play_button.configure(text="⏸️")
         paused = False  # Reset the 'paused' variable to False
+
+
+def threading(duration=0):
+    t1 = Thread(target=progress, args=(duration,))
+    t1.start()
+
+
+def progress(duration):
+    a = pygame.mixer.Sound(f'{list_of_songs[n]}')
+    if duration != 0:
+        song_len = duration
+    else:
+        song_len = a.get_length() * 3
+    while pygame.mixer.music.get_busy():
+        time.sleep(.1)
+        current_pos = pygame.mixer.music.get_pos() / 1000  # Get current position of the song in milliseconds
+        progressbar.set(current_pos / song_len)  # Update progressbar
+        minutes = int(current_pos // 60)  # Calculate the number of minutes
+        seconds = int(current_pos % 60)  # Calculate the number of seconds
+        time_str = f"{minutes:02d}:{seconds:02d}"  # Format the time as mm:ss
+        time_label.config(text=time_str)  # Update the time label
+
+        # Check if the progress has reached the end of the song
+        if current_pos >= song_len:
+            pygame.mixer.music.stop()
+            break
+
+
+
+def button_clicked(duration):
+    play_music(duration)
 
 
 def skip_forward():
@@ -122,8 +136,16 @@ slider.place(relx=0.5, rely=0.78, anchor=tkinter.CENTER)
 progressbar = customtkinter.CTkProgressBar(master=root, progress_color='#32a85a', width=250)
 progressbar.place(relx=.5, rely=.85, anchor=tkinter.CENTER)
 
+button1 = customtkinter.CTkButton(master=root, text='30 sec', command=lambda: button_clicked(30))
+button1.place(relx=0.2, rely=0.9, anchor=tkinter.CENTER)
+
+button2 = customtkinter.CTkButton(master=root, text='45 sec', command=lambda: button_clicked(45))
+button2.place(relx=0.5, rely=0.9, anchor=tkinter.CENTER)
+
+button3 = customtkinter.CTkButton(master=root, text='1 min', command=lambda: button_clicked(60))
+button3.place(relx=0.8, rely=0.9, anchor=tkinter.CENTER)
+
 #run
 
 def run():
     root.mainloop()
-
