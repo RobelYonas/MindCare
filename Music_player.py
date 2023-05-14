@@ -119,6 +119,12 @@ def volume(value):
     #print(value)
     pygame.mixer.music.set_volume(value)
 
+def close_window():
+    root.destroy()
+
+# Close button
+close_button = customtkinter.CTkButton(master=root, text='Close', command=close_window)
+close_button.place(relx=0.86, rely=0.03, anchor=tkinter.CENTER)
 
 # Buttons
 play_button = customtkinter.CTkButton(master=root, text='⏯️', command=play_music)
@@ -149,5 +155,3 @@ button3.place(relx=0.8, rely=0.9, anchor=tkinter.CENTER)
 
 def run():
     root.mainloop()
-
-run()
