@@ -36,7 +36,7 @@ def get_album_cover(song_name, n):
     label1 = tkinter.Label(root, image=load)
     label1.image = load
     label1.place(relx=.25, rely=.06)
-
+    label1.place(relx=.265, rely=.06)
     stripped_string = song_name[6:-4]
     song_name_label = tkinter.Label(text = stripped_string, bg='#222222', fg='white')
     song_name_label.place(relx=.49, rely=.6)
@@ -149,3 +149,5 @@ button3.place(relx=0.8, rely=0.9, anchor=tkinter.CENTER)
 
 def run():
     root.mainloop()
+
+run()
