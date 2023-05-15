@@ -37,7 +37,7 @@ class TestMusicPlayer(unittest.TestCase):
         # Call the skip_forward function
         Music_player.skip_forward()
 
-        # Check that the current song is now the second song in the lists
+        # Check that the current song is now the second song in the list
         assert Music_player.n == 1
 
     def test_threading(self):
