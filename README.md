@@ -27,10 +27,11 @@ To run this project, you will need to create a virtual environment and install t
 2. Navigate to the directory where you downloaded or cloned the repository.
 3. Run the following command to create a new virtual environment: python "-m venv venv"
 ### Activating the Virtual Environment
-- Run the following command to activate the virtual environment: "source venv/bin/activate"
+- (MAC) Run the following command to activate the virtual environment: "source venv/bin/activate"
+- (WINDOWS) Run the following command to activate the virtual environment: "venv\Scripts\activate"
 ### Installing dependencies
 - Run the following command to install the required dependencies "pip install -r requirements.txt"
 ### RUNNING THE GAME
 1. Navigate to the directory where you downloaded or cloned the repository
 2. Activate the virtual environment using the command shown above
-3. Run the following command to start the game: "python main.py"
+3. Run the following command to start the game: "python GUI.py"
