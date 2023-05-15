@@ -42,7 +42,7 @@ def get_album_cover(song_name, n):
     song_name_label.place(relx=.49, rely=.6)
 
     global time_label
-    time_label = tkinter.Label(root, text='00:00', font=('Helvetica', 12))
+    time_label = tkinter.Label(root, text='00:00', font=('Helvetica', 12), bg='#222222', fg='white')
     time_label.place(relx=0.5, rely=0.98, anchor='center')
 
 
@@ -144,7 +144,8 @@ button2.place(relx=0.5, rely=0.9, anchor=tkinter.CENTER)
 button3 = customtkinter.CTkButton(master=root, text='1 min', command=lambda: button_clicked(60))
 button3.place(relx=0.8, rely=0.9, anchor=tkinter.CENTER)
 
-#run
+
 
 def run():
     root.mainloop()
+
