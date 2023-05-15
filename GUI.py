@@ -5,7 +5,6 @@ import Music_player
 from Backend import Emotions
 import customtkinter as ctk
 import tkinter.messagebox as tkmb
-from Music_player import run
 
 
 # window
@@ -80,6 +79,8 @@ class LoginUI:
         tkmb.showinfo(title="Registration Successful", message="You have registered successfully")
         self.hide_register()
         self.app.withdraw()
+        gui = GUI()
+        gui.root.mainloop()
 
     def login(self):
         username = self.user_entry.get()

@@ -1,9 +1,4 @@
-#Packages
+customtkinter==5.1.2
+pygame==2.4.0
+Pillow==9.5.0
 
-pygame~=2.4.0
-customtkinter~=5.1.2
-Pillow~=9.5.0
-'sqlite3'
-'tkinter'
-'tkinter.messagebox'
-'time'
